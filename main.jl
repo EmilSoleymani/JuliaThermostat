@@ -13,18 +13,14 @@ systemStatusMessage = Observable("Heating...")
 systemState = Observable(Int(Heating))
 
 # Update targetTemp Observable. Update Sysem status message
-# on(targetTemp) do newTemp 
-#     targetTemp[] = newTemp
-#     checkSystemStatus()
-# end
 function setTargetTemp(temp)
     global targetTemp[] = temp
     checkSystemStatus()
 end
 
 # Update systemState Observable. Update Sysem status message
-on(systemState) do newState 
-    systemState[] = newState
+function setSystemState(state) 
+    systemState[] = state
     checkSystemStatus()
 end
 
@@ -34,12 +30,20 @@ function checkSystemStatus()
         systemStatusMessage[] = "Heating..."
     elseif currentSystemTemp[] > targetTemp[] && systemState[] == Int(Cooling)
         systemStatusMessage[] = "Cooling..."
+    elseif systemState[] == Int(Auto)
+        if currentSystemTemp[] < targetTemp[]
+            systemStatusMessage[] = "Heating..."
+        elseif currentSystemTemp[] > targetTemp[]
+            systemStatusMessage[] = "Cooling..."
+        else
+            systemStatusMessage[] = "Holding..."
+        end
     else 
         systemStatusMessage[] = "Holding..."
     end
 end
 
-@qmlfunction setTargetTemp
+@qmlfunction setTargetTemp setSystemState
 
 # Load QML File
 loadqml("main.qml", 

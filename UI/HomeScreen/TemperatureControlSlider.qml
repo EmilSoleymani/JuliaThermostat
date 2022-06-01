@@ -4,8 +4,8 @@ import org.julialang 1.0
 
 Slider {
     id: temperatureControlSlider
-    from: 55
-    to: 85
+    from: (guiproperties.systemUnits === 0) ? 55 : Julia.round(Julia.farToCels(55))
+    to: (guiproperties.systemUnits === 0) ? 85 : Julia.round(Julia.farToCels(85))
     stepSize: 1
     orientation: Qt.Vertical
 

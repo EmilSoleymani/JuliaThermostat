@@ -37,6 +37,19 @@ Item{
     }
 
     Text {
+        id: unitsText
+        anchors {
+            left: currentTempText.right
+            top: currentTempText.top
+            leftMargin: 10
+            topMargin: 40
+        }
+        color: "white"
+        font.pixelSize: 25
+        text: (guiproperties.systemUnits === 0) ? "°F" : "°C"
+    }
+
+    Text {
         id: systemStatus
         anchors {
             horizontalCenter: parent.horizontalCenter

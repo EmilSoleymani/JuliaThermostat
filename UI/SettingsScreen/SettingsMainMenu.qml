@@ -68,7 +68,10 @@ Item {
                     mainText.color = "white"
                 }
                 onClicked: {
-                    settingsStackView.push("AboutPage.qml")
+                    if (menuText === "Temperature Units")
+                        settingsStackView.push("TemperatureUnitsPage.qml")
+                    else if (menuText === "About")
+                        settingsStackView.push("AboutPage.qml")
                 }
             }
         }

@@ -26,6 +26,7 @@ Rectangle {
     }
 
     ComboBox {
+        property bool loaded: false
         currentIndex: guiproperties.systemUnits
         model: ListModel {
             id: units
@@ -38,6 +39,12 @@ Rectangle {
             top: tempUnitPageHeader.bottom 
             topMargin: 40
         }
-        onCurrentIndexChanged: Julia.setSystemUnits()
+        onCurrentIndexChanged: {
+            if(loaded){
+                Julia.setSystemUnits()
+            }else{
+                loaded = true
+            }
+        }
     }
 }
